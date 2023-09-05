@@ -1,0 +1,12 @@
+Spring :
+  datasource:
+    url : jdbs:postgresql://localhost:5432/shop_online
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password : root123
+  jpa:
+   hibernate:
+     ddl-auto: create
+   show-sql: true
+
+
