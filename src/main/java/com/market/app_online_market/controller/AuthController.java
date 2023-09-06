@@ -1,15 +1,15 @@
 package com.market.app_online_market.controller;
 
-import com.market.app_online_market.payload.AuthenticationRequest;
+import com.market.app_online_market.payload.AuthLoginDTO;
 import com.market.app_online_market.payload.AuthenticationUser;
+import com.market.app_online_market.payload.RegoisterDTO;
+import com.market.app_online_market.payload.RespAPI;
 import com.market.app_online_market.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,13 +22,19 @@ public class AuthController {
 
     @PutMapping("/login")
     public ResponseEntity<AuthenticationUser> login(
-            @RequestBody String userName,
-            String password
+            @RequestBody AuthLoginDTO authLoginDTO
     ) {
-        AuthenticationUser auth = authService.login(new AuthenticationRequest(userName, password));
+        AuthenticationUser auth = authService.login(authLoginDTO);
         return ResponseEntity.ok().header(HttpHeaders.AUTHORIZATION, auth.token())
                 .body(auth);
     }
 
+    @PostMapping("/registr")
+    public ResponseEntity<?> register(
+            @RequestBody RegoisterDTO regoisterDTO
+    ) {
+        RespAPI res = authService.register(regoisterDTO);
+        return ResponseEntity.status(res.success() ? HttpStatus.OK : HttpStatus.BAD_REQUEST).body(res);
+    }
 
 }

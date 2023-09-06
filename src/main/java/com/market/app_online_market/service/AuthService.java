@@ -2,8 +2,11 @@ package com.market.app_online_market.service;
 
 import com.market.app_online_market.Jwt.JWTUtil;
 import com.market.app_online_market.domain.User;
-import com.market.app_online_market.payload.AuthenticationRequest;
+import com.market.app_online_market.domain.enums.Role;
+import com.market.app_online_market.payload.AuthLoginDTO;
 import com.market.app_online_market.payload.AuthenticationUser;
+import com.market.app_online_market.payload.RegoisterDTO;
+import com.market.app_online_market.payload.RespAPI;
 import com.market.app_online_market.repositores.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,7 +27,7 @@ public class AuthService {
 
     private final JWTUtil util;
 
-    public AuthenticationUser login(AuthenticationRequest authenticationRequest) {
+    public AuthenticationUser login(AuthLoginDTO authenticationRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         authenticationRequest.username(),
@@ -40,5 +43,29 @@ public class AuthService {
                         .collect(Collectors.toList()));
 
         return new AuthenticationUser(token, princpal);
+    }
+
+    public RespAPI register(RegoisterDTO regoisterDTO) {
+        if (
+                userRepository.findByUserName(regoisterDTO.userName())
+        ) {
+            return new RespAPI("User alreay exist", false, 409);
+        }
+        userRepository.save(
+                User.builder()
+                        .userName(regoisterDTO.userName())
+                        .email(regoisterDTO.email())
+                        .fullName(regoisterDTO.fullName())
+                        .number(regoisterDTO.phoneNumber())
+                        .password(regoisterDTO.password())
+                        .role(Role.USER)
+                        .build()
+        );
+
+        return new RespAPI(
+                "User created sucessfuly",
+                true,
+                201
+        );
     }
 }
