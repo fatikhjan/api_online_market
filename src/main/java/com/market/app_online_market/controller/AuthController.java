@@ -29,7 +29,7 @@ public class AuthController {
                 .body(auth);
     }
 
-    @PostMapping("/registr")
+    @PostMapping("/register")
     public ResponseEntity<?> register(
             @RequestBody RegoisterDTO regoisterDTO
     ) {
