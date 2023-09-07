@@ -45,11 +45,11 @@ public class AuthService {
         return new AuthenticationUser(token, princpal);
     }
 
-    public RespAPI register(RegoisterDTO regoisterDTO) {
+    public RespAPI<Boolean> register(RegoisterDTO regoisterDTO) {
         if (
-                userRepository.findByUserName(regoisterDTO.userName())
+                userRepository.findByUserName(regoisterDTO.userName()).isEmpty()
         ) {
-            return new RespAPI("User alreay exist", false, 409);
+            return new RespAPI<>("User alreay exist", false, false, 409);
         }
         userRepository.save(
                 User.builder()
@@ -62,8 +62,9 @@ public class AuthService {
                         .build()
         );
 
-        return new RespAPI(
+        return new RespAPI<>(
                 "User created sucessfuly",
+                null,
                 true,
                 201
         );
