@@ -24,6 +24,7 @@ public class User extends ABCEntity implements UserDetails {
 
     private String fullName;
 
+    @Column(unique = true)
     private String userName;
 
     private String number;
@@ -38,7 +39,7 @@ public class User extends ABCEntity implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority(role.name()));
+        return Collections.singletonList(new SimpleGrantedAuthority(role.name()));
     }
 
     @Override

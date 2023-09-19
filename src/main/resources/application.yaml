@@ -1,6 +1,6 @@
 Spring :
   datasource:
-    url : jdbs:postgresql://localhost:5432/shop_online
+    url : jdbc:postgresql://localhost:5432/shop_online
     driver-class-name: org.postgresql.Driver
     username: postgres
     password : root123
@@ -8,5 +8,5 @@ Spring :
    hibernate:
      ddl-auto: create
    show-sql: true
-
-
+server:
+  port: 8080

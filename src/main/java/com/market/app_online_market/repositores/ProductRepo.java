@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.UUID;
 
 public interface ProductRepo extends JpaRepository<Product, UUID> {
-    Page<Product> findall(Pageable pageble);
+
+    Page<Product> findAll(Pageable pageable);
 }
+
 

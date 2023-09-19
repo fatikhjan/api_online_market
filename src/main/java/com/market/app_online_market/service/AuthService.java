@@ -30,7 +30,7 @@ public class AuthService {
     public AuthenticationUser login(AuthLoginDTO authenticationRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        authenticationRequest.username(),
+                        authenticationRequest.userName(),
                         authenticationRequest.password()
                 )
         );
