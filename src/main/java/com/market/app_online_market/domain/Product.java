@@ -1,14 +1,17 @@
 package com.market.app_online_market.domain;
 
-import com.market.app_online_market.domain.template.ABCEntity;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity(name = "Products")
 @Getter
@@ -16,7 +19,12 @@ import java.util.Objects;
 @ToString
 @RequiredArgsConstructor
 
-public class Product extends ABCEntity {
+public class Product  {
+
+    @Id
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
+    private UUID id;
 
     private String name;
     private String price;

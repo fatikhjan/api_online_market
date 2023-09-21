@@ -2,30 +2,37 @@ package com.market.app_online_market.domain;
 
 
 import com.market.app_online_market.domain.enums.Role;
-import com.market.app_online_market.domain.template.ABCEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "Users")
 @Builder
-public class User extends ABCEntity implements UserDetails {
+public class User  implements UserDetails {
 
+    @Id
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
+    private UUID id;
 
     private String fullName;
 
     @Column(unique = true)
-    private String userName;
+    private String user_name;
 
     private String number;
 
@@ -49,7 +56,7 @@ public class User extends ABCEntity implements UserDetails {
 
     @Override
     public String getUsername() {
-        return userName;
+        return user_name;
     }
 
     @Override

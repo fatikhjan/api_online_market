@@ -53,7 +53,7 @@ public class AuthService {
         }
         userRepository.save(
                 User.builder()
-                        .userName(regoisterDTO.userName())
+                        .user_name(regoisterDTO.userName())
                         .email(regoisterDTO.email())
                         .fullName(regoisterDTO.fullName())
                         .number(regoisterDTO.phoneNumber())
