@@ -1,6 +1,6 @@
 package com.market.app_online_market.payload;
 
-import com.market.app_online_market.domain.User;
+import com.market.app_online_market.domain.Users;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -8,9 +8,9 @@ import java.util.Collection;
 
 public class CustomUserDetail implements UserDetails {
 
-    private User user;
+    private final Users user;
 
-    public CustomUserDetail(User user) {
+    public CustomUserDetail(Users user) {
         this.user = user;
     }
 

@@ -1,6 +1,6 @@
 package com.market.app_online_market.service.securityService;
 
-import com.market.app_online_market.domain.User;
+import com.market.app_online_market.domain.Users;
 import com.market.app_online_market.payload.CustomUserDetail;
 import com.market.app_online_market.repositores.UserRepo;
 import lombok.RequiredArgsConstructor;
@@ -17,10 +17,11 @@ public class UserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepo.findByUserName(username).get();
-        if (user == null) {
-            throw new UsernameNotFoundException("User not found with this UserName " + username);
+        Users user = userRepo.findByUser_name(username).get();
+        if (user != null) {
+            return new CustomUserDetail(user);
         }
-        return new CustomUserDetail(user);
+        throw new UsernameNotFoundException("User not found with this UserName " + username);
+
     }
 }

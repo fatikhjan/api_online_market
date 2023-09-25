@@ -1,7 +1,7 @@
 package com.market.app_online_market.service;
 
 import com.market.app_online_market.Jwt.JWTUtil;
-import com.market.app_online_market.domain.User;
+import com.market.app_online_market.domain.Users;
 import com.market.app_online_market.domain.enums.Role;
 import com.market.app_online_market.payload.AuthLoginDTO;
 import com.market.app_online_market.payload.AuthenticationUser;
@@ -34,7 +34,7 @@ public class AuthService {
                         authenticationRequest.password()
                 )
         );
-        User princpal = (User) authentication.getPrincipal();
+        Users princpal = (Users) authentication.getPrincipal();
         userRepository.save(princpal);
         String token = util.issueToken(princpal.getUsername(),
                 princpal.getAuthorities()
@@ -47,12 +47,12 @@ public class AuthService {
 
     public RespAPI<Boolean> register(RegoisterDTO regoisterDTO) {
         if (
-                userRepository.findByUserName(regoisterDTO.userName()).isEmpty()
+                userRepository.findByUser_name(regoisterDTO.userName()).isEmpty()
         ) {
             return new RespAPI<>("User alreay exist", false, false, 409);
         }
         userRepository.save(
-                User.builder()
+                Users.builder()
                         .user_name(regoisterDTO.userName())
                         .email(regoisterDTO.email())
                         .fullName(regoisterDTO.fullName())

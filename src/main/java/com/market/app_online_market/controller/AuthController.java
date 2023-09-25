@@ -33,7 +33,7 @@ public class AuthController {
     public ResponseEntity<?> register(
             @RequestBody RegoisterDTO regoisterDTO
     ) {
-        RespAPI res = authService.register(regoisterDTO);
+        RespAPI<Boolean> res = authService.register(regoisterDTO);
         return ResponseEntity.status(res.success() ? HttpStatus.OK : HttpStatus.BAD_REQUEST).body(res);
     }
 
